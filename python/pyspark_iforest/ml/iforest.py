@@ -235,16 +235,19 @@ class IForest(JavaEstimator, HasFeaturesCol, HasPredictionCol, HasSeed, JavaMLWr
     approxQuantileRelativeError = Param(Params._dummy(), "approxQuantileRelativeError",
                                         "Relative Error for anomaly score approximate quantile calculaion (0 <= e <= 1)",
                                         typeConverter=TypeConverters.toFloat)
+    numCategoricalFeatures = Param(Params._dummy(), "numCategoricalFeatures",
+                                   "The number of categorical features at the end of features array",
+                                   typeConverter=TypeConverters.toInt)
 
     @keyword_only
     def __init__(self, featuresCol="features", predictionCol="prediction", anomalyScore="anomalyScore",
                  numTrees=100, maxSamples=1.0, maxFeatures=1.0, maxDepth=10, contamination=0.1,
-                 bootstrap=False, approxQuantileRelativeError=0.):
+                 bootstrap=False, approxQuantileRelativeError=0., numCategoricalFeatures=0):
 
         super(IForest, self).__init__()
         self._java_obj = self._new_java_obj("org.apache.spark.ml.iforest.IForest", self.uid)
         self._setDefault(numTrees=100, maxSamples=1.0, maxFeatures=1.0, maxDepth=10, contamination=0.1,
-                         bootstrap=False, approxQuantileRelativeError=0.)
+                         bootstrap=False, approxQuantileRelativeError=0., numCategoricalFeatures=0,)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -255,7 +258,7 @@ class IForest(JavaEstimator, HasFeaturesCol, HasPredictionCol, HasSeed, JavaMLWr
     @since("2.1.0")
     def setParams(self, featuresCol="features", predictionCol="prediction", anomalyScore="anomalyScore",
                   numTrees=100, maxSamples=1.0, maxFeatures=1.0, maxDepth=10, contamination=0.1,
-                  bootstrap=False, approxQuantileRelativeError=0.):
+                  bootstrap=False, approxQuantileRelativeError=0., numCategoricalFeatures=0):
         """
         Sets params for IForest.
         """
@@ -359,3 +362,17 @@ class IForest(JavaEstimator, HasFeaturesCol, HasPredictionCol, HasSeed, JavaMLWr
         Gets the value of `approxQuantileRelativeError`
         """
         return self.getOrDefault(self.approxQuantileRelativeError)
+
+    @since("2.1.0")
+    def setNumCategoricalFeatures(self, value):
+        """
+        Sets the value of :py:attr:`numCategoricalFeatures`.
+        """
+        return self._set(numCategoricalFeatures=value)
+
+    @since("2.1.0")
+    def getNumCategoricalFeatures(self):
+        """
+        Gets the value of `numCategoricalFeatures`
+        """
+        return self.getOrDefault(self.numCategoricalFeatures)
