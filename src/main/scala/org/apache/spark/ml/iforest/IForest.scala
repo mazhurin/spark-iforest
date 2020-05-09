@@ -138,7 +138,7 @@ class IForestModel (
     * @param ifNode Tree's root node.
     * @param currentPathLength Current path length.
     * @return Path length in this tree.
-    */
+   */
   private def calPathLength(features: Vector,
       ifNode: IFNode,
       currentPathLength: Int): Double = ifNode match {
