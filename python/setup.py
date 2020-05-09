@@ -5,7 +5,7 @@ import io
 
 setup(
     name="pyspark-iforest",
-    version="2.4.0",
+    version="2.4.0.99",
     author="Titicaca",
     author_email="lake_titicaca@outlook.com",
     description="PySpark Wrapper for Spark-IForest",

@@ -6,7 +6,7 @@
 
     <groupId>org.apache.spark.ml</groupId>
     <artifactId>spark-iforest</artifactId>
-    <version>2.4.0</version>
+    <version>2.4.0.99</version>
 
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
