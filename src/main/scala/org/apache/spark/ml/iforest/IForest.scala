@@ -99,16 +99,18 @@ class IForestModel (
     // append a score column
     val scoreDataset = dataset.withColumn($(anomalyScoreCol), scoreUDF(col($(featuresCol))))
 
-    if (threshold < 0) {
-      logger.info("threshold is not set, calculating the anomaly threshold according to param contamination..")
-      scoreDataset.persist()
-      logger.debug("Persisted scoreDataset..")
-      threshold = scoreDataset.stat.approxQuantile(
-        $(anomalyScoreCol),
-        Array(1 - $(contamination)),
-        $(approxQuantileRelativeError)
-      )(0)
-    }
+    threshold = 0.5
+
+//    if (threshold < 0) {
+//      logger.info("threshold is not set, calculating the anomaly threshold according to param contamination..")
+//      scoreDataset.persist()
+//      logger.debug("Persisted scoreDataset..")
+//      threshold = scoreDataset.stat.approxQuantile(
+//        $(anomalyScoreCol),
+//        Array(1 - $(contamination)),
+//        $(approxQuantileRelativeError)
+//      )(0)
+//    }
 
     dataset.unpersist()
 
